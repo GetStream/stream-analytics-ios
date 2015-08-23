@@ -24,6 +24,8 @@
 	<dict>
 		<key>APIKey</key>
 		<string>nfq26m3qgfyp</string>
+		<key>JWTToken</key>
+		<string>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3Rpb24iOiJ3cml0ZSIsImZlZWRfaWQiOiIqIiwicmVzb3VyY2UiOiJhbmFseXRpY3MifQ.pFU9mTsGtBuhdU-_NjKmd6dLRwvAcNskeMZ97BRRMnE</string>
 	</dict>
 </dict>
 </plist>

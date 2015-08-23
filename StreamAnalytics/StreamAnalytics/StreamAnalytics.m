@@ -30,12 +30,22 @@
         NSBundle *appBundle = [NSBundle bundleForClass:[self class]];
         NSDictionary *streamAnalitycsSettings = [appBundle objectForInfoDictionaryKey:@"StreamAnalytics"];
         
-        NSAssert(streamAnalitycsSettings!=nil, @"STREAM ANALYTICS requires A StreamAnalytics dict entry in your app config plist file");
+//        NSAssert(streamAnalitycsSettings!=nil, @"STREAM ANALYTICS requires A StreamAnalytics dict entry in your app config plist file");
         
-        
+        if (streamAnalitycsSettings && (NSString *)[streamAnalitycsSettings objectForKey:@"APIKey"]) {
+            self.APIKey = [streamAnalitycsSettings objectForKey:@"APIKey"];
+        }
+
+        if (streamAnalitycsSettings && (NSString *)[streamAnalitycsSettings objectForKey:@"JWTToken"]) {
+            self.JWTToken = [streamAnalitycsSettings objectForKey:@"JWTToken"];
+        }
         
     }
     return self;
+}
+
+- (void)send:(NSDictionary *)parameters {
+    
 }
 
 @end

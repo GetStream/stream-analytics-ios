@@ -32,8 +32,19 @@
 }
 
 - (void)testStreamAnalyticsSingletonExists {
-    XCTAssertNotNil([StreamAnalytics sharedInstance], @"StreamAnalytics singleton class exists");
+    XCTAssertNotNil( [StreamAnalytics sharedInstance], @"StreamAnalytics singleton class exists");
 }
+
+- (void)testStreamAnalyticsAPIKeyFromInfoPlist {
+    NSDictionary *settings = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"StreamAnalytics"];
+    XCTAssertEqual((NSString *)[settings objectForKey:@"APIKey"],[[StreamAnalytics sharedInstance] APIKey], @"API Key is not equal to enry in app info property list");
+}
+
+- (void)testStreamAnalyticsApiSecretFromInfoPlist {
+    NSDictionary *settings = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"StreamAnalytics"];
+    XCTAssertEqual((NSString *)[settings objectForKey:@"JWTToken"],[[StreamAnalytics sharedInstance] JWTToken], @"JWT Token not equal to entry in app info property list");
+}
+
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
