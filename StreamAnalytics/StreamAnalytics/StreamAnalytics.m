@@ -7,13 +7,20 @@
 //
 
 #import "StreamAnalytics.h"
+#import "StreamClient.h"
+
+@interface StreamAnalytics()
+
+@property (nonatomic, strong) StreamClient *streamClient;
+
+@end
 
 @implementation StreamAnalytics
 
 
 #pragma mark - class methods
 
-+ (id)sharedInstance {
++ (instancetype)sharedInstance {
     static StreamAnalytics *streamAnalytics = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -22,11 +29,15 @@
     return streamAnalytics;
 }
 
+
 #pragma mark - instance methods
 
 - (instancetype)init {
     self = [super init];
     if(self) {
+        
+        self.streamClient = [StreamClient sharedInstance];
+        
         NSBundle *appBundle = [NSBundle bundleForClass:[self class]];
         NSDictionary *streamAnalitycsSettings = [appBundle objectForInfoDictionaryKey:@"StreamAnalytics"];
         
@@ -44,8 +55,18 @@
     return self;
 }
 
-- (void)send:(NSDictionary *)parameters {
+- (void)send:(StreamEvent <StreamEvent>*)event {
     
+    NSString *endPoint = [NSString stringWithFormat:@"%@/?api_key=%@", [[event class] endPoint], [StreamAnalytics sharedInstance].APIKey];
+    
+    [self.streamClient doRequestForEndPoint:[endPoint stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] withData:[event build] completionHandler:nil];
+}
+
+- (void)send:(StreamEvent <StreamEvent>*)event completionHandler:(StreamRequestResult)result {
+    
+    NSString *endPoint = [NSString stringWithFormat:@"%@/?api_key=%@", [[event class] endPoint], [StreamAnalytics sharedInstance].APIKey];
+    
+    [self.streamClient doRequestForEndPoint:[endPoint stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] withData:[event build] completionHandler:result];
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
-#import "StreamAnalytics.h"
+#import "Stream.h"
 
 /*
  API_KEY nfq26m3qgfyp
@@ -43,6 +43,39 @@
 - (void)testStreamAnalyticsApiSecretFromInfoPlist {
     NSDictionary *settings = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"StreamAnalytics"];
     XCTAssertEqual((NSString *)[settings objectForKey:@"JWTToken"],[[StreamAnalytics sharedInstance] JWTToken], @"JWT Token not equal to entry in app info property list");
+}
+
+- (void)testTrackEngagementEvent {
+    
+    StreamEngagement *event = [StreamEngagement createEngagementEventWithActivityId:@"activityId" feedId:@"feedId" label:@"label" score:[NSNumber numberWithInt:10] extraData:@{@"extra":@"extra"}];
+    StreamAnalytics *shared = [StreamAnalytics sharedInstance];
+    [shared setUserId:@"userX"];
+    [shared send:event];
+
+}
+
+- (void)testTrackEngagementEventCallback {
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    StreamEngagement *event = [StreamEngagement createEngagementEventWithActivityId:@"activityId" feedId:@"feedId" label:@"label" score:[NSNumber numberWithInt:10] extraData:@{@"extra":@"extra"}];
+    StreamAnalytics *shared = [StreamAnalytics sharedInstance];
+    [shared setUserId:@"userX"];
+    [shared send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
+        
+        NSLog(@"%@", statusCode);
+        
+        XCTAssertTrue(error==nil, @"%@", error.localizedDescription);
+
+        XCTAssertEqual(statusCode, 201, @"event not created on server");
+        
+        XCTAssertTrue([NSThread isMainThread], @"Callback is not on the main thread!");
+        
+        //finish async test
+        dispatch_semaphore_signal(semaphore);
+        
+    }];
+    
+    long rc = dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, 10.0 * NSEC_PER_SEC));
+    XCTAssertEqual(rc, 0, @"network request timed out");
 }
 
 

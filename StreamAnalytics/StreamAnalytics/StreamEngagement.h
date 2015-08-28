@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "StreamEvent.h"
 
-@interface StreamEngagement : NSObject <StreamEvent>
+@interface StreamEngagement : StreamEvent
 
 
 /*
     Activity Id required
  */
-@property(nonatomic, strong) NSNumber *activityId;
+@property(nonatomic, strong) NSString *activityId;
 
 @property(nonatomic, strong) NSString *feedId;
 
@@ -31,10 +31,11 @@
  */
 
 
-+ (void)createEngagementEventWithActivityId:(NSNumber *)activityId
++ (instancetype)createEngagementEventWithActivityId:(NSString *)activityId
                                              feedId:(NSString *)feedId
                                               label:(NSString *)label
                                               score:(NSNumber *)score
                                           extraData:(NSDictionary *)extraData;
+
 
 @end

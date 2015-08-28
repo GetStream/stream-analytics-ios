@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "StreamEvent.h"
 
-typedef void (^ StreamResult)(id, NSError*);
+
+typedef void (^ StreamRequestResult)(NSInteger, id, NSError*);
+
 
 @interface StreamAnalytics : NSObject
 
@@ -26,23 +29,27 @@ typedef void (^ StreamResult)(id, NSError*);
 
 /**
     Every resource created by the client is always related to an user id, set this
-    propery before start stracking
+    propery before start tracking
  */
 @property(nonatomic, strong) NSString *userId;
 
 
 /**
+ */
+@property(nonatomic, assign) BOOL debug;
+
+/**
     class method for accesing StreamAnalytics singleton instance
  */
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 
 
 /**
     class instance method send, sends the actual data to the server
  */
 
-- (void)send:(NSDictionary *)parameters;
+- (void)send:(StreamEvent *)event;
 
-- (void)send2:(NSDictionary *)parameters withBlock:(StreamResult) result;
+- (void)send:(StreamEvent *)event completionHandler:(StreamRequestResult) result;
 
 @end

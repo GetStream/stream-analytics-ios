@@ -12,7 +12,7 @@
 typedef enum : NSUInteger {
     Engagement = 0,
     Impression
-} StreamEventBuilderType;
+} StreamEventType;
 
 /** 
     StreamEvent protocol 
@@ -22,6 +22,11 @@ typedef enum : NSUInteger {
 
 - (NSDictionary *) build;
 
-- (BOOL) validate;
++ (NSString *) endPoint;
+
+@end
+
+
+@interface StreamEvent: NSObject
 
 @end

@@ -7,15 +7,25 @@
 //
 
 #import "StreamImpression.h"
+#import "StreamEvent.h"
+
+static NSString *const StreamImpressionEndpoint = @"impression";
+
+@interface StreamImpression() <StreamEvent>
+
+@end
 
 @implementation StreamImpression
 
-- (NSDictionary *)build {
-    return @{};
+
+#pragma mark - StreamEvent
+
++ (NSString *)endPoint {
+    return StreamImpressionEndpoint;
 }
 
-- (BOOL)validate {
-    return YES;
+- (NSDictionary *)build {
+    return @{};
 }
 
 @end

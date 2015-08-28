@@ -13,6 +13,8 @@
 		490B6D761B88850B0088C872 /* StreamAnalyticsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 490B6D751B88850B0088C872 /* StreamAnalyticsTests.m */; };
 		490B6DAF1B8918A70088C872 /* StreamEngagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 490B6DAE1B8918A70088C872 /* StreamEngagement.m */; };
 		490B6DBC1B8A70AD0088C872 /* StreamImpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 490B6DBB1B8A70AD0088C872 /* StreamImpression.m */; };
+		49161D291B8C4F4B00BA518F /* StreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 49161D281B8C4F4B00BA518F /* StreamClient.m */; };
+		49C3763B1B8E73C0001F5609 /* StreamEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C3763A1B8E73C0001F5609 /* StreamEvent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,10 @@
 		490B6DAE1B8918A70088C872 /* StreamEngagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamEngagement.m; sourceTree = "<group>"; };
 		490B6DBA1B8A70AD0088C872 /* StreamImpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamImpression.h; sourceTree = "<group>"; };
 		490B6DBB1B8A70AD0088C872 /* StreamImpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamImpression.m; sourceTree = "<group>"; };
+		49161D271B8C4F4B00BA518F /* StreamClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamClient.h; sourceTree = "<group>"; };
+		49161D281B8C4F4B00BA518F /* StreamClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamClient.m; sourceTree = "<group>"; };
+		49C376371B8E61EF001F5609 /* Stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stream.h; sourceTree = "<group>"; };
+		49C3763A1B8E73C0001F5609 /* StreamEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamEvent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,10 +101,14 @@
 				490B6D3B1B8880470088C872 /* StreamAnalytics.h */,
 				490B6D3D1B8880470088C872 /* StreamAnalytics.m */,
 				490B6DAA1B89152C0088C872 /* StreamEvent.h */,
+				49C3763A1B8E73C0001F5609 /* StreamEvent.m */,
+				49C376371B8E61EF001F5609 /* Stream.h */,
 				490B6DAD1B8918A70088C872 /* StreamEngagement.h */,
 				490B6DAE1B8918A70088C872 /* StreamEngagement.m */,
 				490B6DBA1B8A70AD0088C872 /* StreamImpression.h */,
 				490B6DBB1B8A70AD0088C872 /* StreamImpression.m */,
+				49161D271B8C4F4B00BA518F /* StreamClient.h */,
+				49161D281B8C4F4B00BA518F /* StreamClient.m */,
 			);
 			path = StreamAnalytics;
 			sourceTree = "<group>";
@@ -208,6 +218,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49161D291B8C4F4B00BA518F /* StreamClient.m in Sources */,
+				49C3763B1B8E73C0001F5609 /* StreamEvent.m in Sources */,
 				490B6DAF1B8918A70088C872 /* StreamEngagement.m in Sources */,
 				490B6DBC1B8A70AD0088C872 /* StreamImpression.m in Sources */,
 				490B6D3E1B8880470088C872 /* StreamAnalytics.m in Sources */,
