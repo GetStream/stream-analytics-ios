@@ -45,18 +45,20 @@
     XCTAssertEqual((NSString *)[settings objectForKey:@"JWTToken"],[[StreamAnalytics sharedInstance] JWTToken], @"JWT Token not equal to entry in app info property list");
 }
 
-- (void)testTrackEngagementEvent {
+- (void)testTrackEngagementEventWithUserId {
     
     StreamEngagement *event = [StreamEngagement createEngagementEventWithActivityId:@"activityId" feedId:@"feedId" label:@"label" score:[NSNumber numberWithInt:10] extraData:@{@"extra":@"extra"}];
-    StreamAnalytics *shared = [StreamAnalytics sharedInstance];
+    StreamAnalytics *shared = [StreamAnalytics sharedInstance];    
     [shared setUserId:@"userX"];
+    
+    XCTAssertEqual([shared userId], @"userX", @"User id not equal to set user id");
+    
     [shared send:event];
-
 }
 
 - (void)testTrackEngagementEventCallback {
     
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Track async event"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Track async engagement event"];
     
     StreamEngagement *event = [StreamEngagement createEngagementEventWithActivityId:@"activityId" feedId:@"feedId" label:@"label" score:[NSNumber numberWithInt:10] extraData:@{@"extra":@"extra"}];
     StreamAnalytics *shared = [StreamAnalytics sharedInstance];
@@ -81,6 +83,33 @@
     }];
 }
 
+- (void)testTrackImpressionEventCallback {
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Track async impression event"];
+    
+    StreamImpression *event = [StreamImpression createImpressionEventWithActivityIds:@[@"id1", @"id2", @"id3"] feedId:@"feed-xxx"extraData: @{@"extra":@"extra"}];
+    [[StreamAnalytics sharedInstance] setUserId:@"userX"];
+    [[StreamAnalytics sharedInstance] send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
+       
+        NSLog(@"response with status code: %ld", (long)statusCode);
+        
+        XCTAssertTrue(error==nil, @"%@", error.localizedDescription);
+        
+        XCTAssertEqual(statusCode, 201, @"event not created on server");
+        
+        //finish async test
+        [expectation fulfill];
+        
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+        XCTAssertNil(error);
+    }];
+}
+
+- (void)testEventCallbackError {
+    
+}
 
 
 - (void)testPerformanceExample {

@@ -29,4 +29,15 @@ typedef enum : NSUInteger {
 
 @interface StreamEvent: NSObject
 
+
+/**
+ Feed id, required
+ */
+@property(nonatomic, strong) NSString *feedId;
+
+/**
+ Extra data field, optional
+ */
+@property(nonatomic, strong) NSDictionary *extraData;
+
 @end

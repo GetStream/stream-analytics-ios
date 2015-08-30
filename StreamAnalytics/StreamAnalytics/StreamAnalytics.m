@@ -55,6 +55,11 @@
     return self;
 }
 
+
+-(NSString *)userId {
+    return _userId == nil ? self.APIKey : _userId;
+}
+
 - (void)send:(StreamEvent <StreamEvent>*)event {
     
     NSString *endPoint = [NSString stringWithFormat:@"%@/?api_key=%@", [[event class] endPoint], [StreamAnalytics sharedInstance].APIKey];

@@ -9,6 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "StreamEvent.h"
 
-@interface StreamImpression : NSObject
+@interface StreamImpression : StreamEvent
+
+/**
+ Activity Ids, required
+ */
+@property(nonatomic, strong) NSArray *activityIds;
+
+/*
+ Class method for creating an impression event
+ last 2 params can be set nil and so are optional
+ */
++ (instancetype)createImpressionEventWithActivityIds:(NSArray *)activityIds
+                                              feedId:(NSString *)feedId
+                                           extraData:(NSDictionary *)extraData;
 
 @end

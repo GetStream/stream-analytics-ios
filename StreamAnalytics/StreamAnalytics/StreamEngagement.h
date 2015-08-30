@@ -12,25 +12,26 @@
 @interface StreamEngagement : StreamEvent
 
 
-/*
-    Activity Id required
+/**
+ Activity Id, required
  */
 @property(nonatomic, strong) NSString *activityId;
 
-@property(nonatomic, strong) NSString *feedId;
-
+/**
+    Label field, required
+ */
 @property(nonatomic, strong) NSString *label;
 
+/**
+    Score field, optional
+ */
 @property(nonatomic, strong) NSNumber *score;
-
-@property(nonatomic, strong) NSDictionary *extraData;
 
 
 /*
-    class methods
+    Class method for creating an engagement event
+    last 2 params can be set nil and so are optional
  */
-
-
 + (instancetype)createEngagementEventWithActivityId:(NSString *)activityId
                                              feedId:(NSString *)feedId
                                               label:(NSString *)label

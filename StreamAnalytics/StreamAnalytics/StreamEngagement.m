@@ -32,7 +32,7 @@ static NSString *const StreamEngagementEndpoint = @"engagement";
     NSAssert(feedId!=nil, @"An feed id is required for tracking engagement events");
     engagement.feedId = feedId;
     
-    NSAssert(feedId!=nil, @"A label is required for tracking engagement events");
+    NSAssert(label!=nil, @"A label is required for tracking engagement events");
     engagement.label = label;
     
     engagement.score = score;
