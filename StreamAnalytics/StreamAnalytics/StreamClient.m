@@ -107,9 +107,7 @@ static NSString *const StreamAPIVersion = @"v1.0";
                 NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:0 error:nil]);
                 
                 if(completionHandler) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completionHandler(statusCode, jsonData, nil);
-                    });
+                    completionHandler(statusCode, jsonData, nil);
                 }
                 
             }

@@ -55,28 +55,32 @@
 }
 
 - (void)testTrackEngagementEventCallback {
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Track async event"];
+    
     StreamEngagement *event = [StreamEngagement createEngagementEventWithActivityId:@"activityId" feedId:@"feedId" label:@"label" score:[NSNumber numberWithInt:10] extraData:@{@"extra":@"extra"}];
     StreamAnalytics *shared = [StreamAnalytics sharedInstance];
     [shared setUserId:@"userX"];
     [shared send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
         
-        NSLog(@"%@", statusCode);
+        NSLog(@"response with status code: %ld", (long)statusCode);
         
         XCTAssertTrue(error==nil, @"%@", error.localizedDescription);
 
         XCTAssertEqual(statusCode, 201, @"event not created on server");
         
-        XCTAssertTrue([NSThread isMainThread], @"Callback is not on the main thread!");
+        XCTAssertTrue(![NSThread isMainThread], @"Callback is on the main thread!");
         
         //finish async test
-        dispatch_semaphore_signal(semaphore);
+        [expectation fulfill];
         
     }];
     
-    long rc = dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, 10.0 * NSEC_PER_SEC));
-    XCTAssertEqual(rc, 0, @"network request timed out");
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+        XCTAssertNil(error);
+    }];
 }
+
 
 
 - (void)testPerformanceExample {
