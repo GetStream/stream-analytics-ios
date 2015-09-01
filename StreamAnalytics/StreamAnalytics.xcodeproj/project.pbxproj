@@ -54,6 +54,7 @@
 		490B6DBB1B8A70AD0088C872 /* StreamImpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamImpression.m; sourceTree = "<group>"; };
 		49161D271B8C4F4B00BA518F /* StreamClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamClient.h; sourceTree = "<group>"; };
 		49161D281B8C4F4B00BA518F /* StreamClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamClient.m; sourceTree = "<group>"; };
+		498170C31B95AAF00002FF05 /* StreamAnalytics+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StreamAnalytics+Protected.h"; sourceTree = "<group>"; };
 		49C376371B8E61EF001F5609 /* Stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stream.h; sourceTree = "<group>"; };
 		49C3763A1B8E73C0001F5609 /* StreamEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamEvent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				490B6D3B1B8880470088C872 /* StreamAnalytics.h */,
+				498170C31B95AAF00002FF05 /* StreamAnalytics+Protected.h */,
 				490B6D3D1B8880470088C872 /* StreamAnalytics.m */,
 				490B6DAA1B89152C0088C872 /* StreamEvent.h */,
 				49C3763A1B8E73C0001F5609 /* StreamEvent.m */,

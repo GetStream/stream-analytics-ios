@@ -18,13 +18,13 @@ typedef void (^ StreamRequestResult)(NSInteger, id, NSError*);
 /** 
     API Key obtained from Stream, can be set in app information property list
  */
-@property(nonatomic, strong) NSString *APIKey;
+@property(nonatomic, strong, readonly) NSString *APIKey;
 
 
 /**
     API secret obtained from Stream, can be set in app information property list
  */
-@property(nonatomic, strong) NSString *JWTToken;
+@property(nonatomic, strong, readonly) NSString *JWTToken;
 
 
 /**
@@ -36,7 +36,7 @@ typedef void (^ StreamRequestResult)(NSInteger, id, NSError*);
 
 /**
  */
-@property(nonatomic, assign) BOOL debug;
+@property(nonatomic, assign) BOOL loggingEnabled;
 
 /**
     class method for accesing StreamAnalytics singleton instance

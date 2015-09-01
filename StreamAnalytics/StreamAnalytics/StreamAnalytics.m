@@ -6,14 +6,35 @@
 //  Copyright (c) 2015 Stream. All rights reserved.
 //
 
+#include <asl.h>
 #import "StreamAnalytics.h"
+#import "StreamAnalytics+Protected.h"
 #import "StreamClient.h"
 
-@interface StreamAnalytics()
+static void AddStderrOnce() {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        asl_add_log_file(NULL, STDERR_FILENO);
+    });
+}
 
-@property (nonatomic, strong) StreamClient *streamClient;
+/**
+    Loging method not ending up in device logs
+ */
+void StreamLogDebug (NSString *format, ...) {
+    AddStderrOnce();
+    va_list args;
+    va_start(args, format);
+    NSString *message = [[NSString alloc] initWithFormat:format
+                                               arguments:args];
+    asl_log(NULL, NULL, (ASL_LEVEL_DEBUG), "%s", [message UTF8String]);
+    va_end(args);
+}
 
-@end
+
+static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
+
+
 
 @implementation StreamAnalytics
 
@@ -41,8 +62,6 @@
         NSBundle *appBundle = [NSBundle bundleForClass:[self class]];
         NSDictionary *streamAnalitycsSettings = [appBundle objectForInfoDictionaryKey:@"StreamAnalytics"];
         
-//        NSAssert(streamAnalitycsSettings!=nil, @"STREAM ANALYTICS requires A StreamAnalytics dict entry in your app config plist file");
-        
         if (streamAnalitycsSettings && (NSString *)[streamAnalitycsSettings objectForKey:@"APIKey"]) {
             self.APIKey = [streamAnalitycsSettings objectForKey:@"APIKey"];
         }
@@ -56,6 +75,15 @@
 }
 
 
+#pragma - property accessors
+
+-(void)setLoggingEnabled:(BOOL)loggingEnabled {
+    _loggingEnabled = loggingEnabled;
+    #ifdef DEBUG
+    [self logMessage:[NSString stringWithFormat:@"api key: %@\nJWTToken: %@", self.APIKey, self.JWTToken]];
+    #endif
+}
+
 -(NSString *)userId {
     return _userId == nil ? self.APIKey : _userId;
 }
@@ -64,6 +92,10 @@
     
     NSString *endPoint = [NSString stringWithFormat:@"%@/?api_key=%@", [[event class] endPoint], [StreamAnalytics sharedInstance].APIKey];
     
+    #ifdef DEBUG
+    [self logMessage:[NSString stringWithFormat:@"Send event: %@", endPoint]];
+    #endif
+    
     [self.streamClient doRequestForEndPoint:[endPoint stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] withData:[event build] completionHandler:nil];
 }
 
@@ -71,7 +103,19 @@
     
     NSString *endPoint = [NSString stringWithFormat:@"%@/?api_key=%@", [[event class] endPoint], [StreamAnalytics sharedInstance].APIKey];
     
+    #ifdef DEBUG
+    [self logMessage:[NSString stringWithFormat:@"Send event: %@", endPoint]];
+    #endif
+    
     [self.streamClient doRequestForEndPoint:[endPoint stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] withData:[event build] completionHandler:result];
+}
+
+#pragma mark - Private
+
+-(void)logMessage:(NSString *)message {
+    if(self.loggingEnabled) {
+        StreamLogDebug([NSString stringWithFormat:@"%@\n%@", LogPrompt, message]);
+    }
 }
 
 @end

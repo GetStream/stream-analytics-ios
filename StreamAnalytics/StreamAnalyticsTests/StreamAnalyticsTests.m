@@ -48,7 +48,8 @@
 - (void)testTrackEngagementEventWithUserId {
     
     StreamEngagement *event = [StreamEngagement createEngagementEventWithActivityId:@"activityId" feedId:@"feedId" label:@"label" score:[NSNumber numberWithInt:10] extraData:@{@"extra":@"extra"}];
-    StreamAnalytics *shared = [StreamAnalytics sharedInstance];    
+    StreamAnalytics *shared = [StreamAnalytics sharedInstance];
+    shared.loggingEnabled = YES;
     [shared setUserId:@"userX"];
     
     XCTAssertEqual([shared userId], @"userX", @"User id not equal to set user id");
@@ -62,6 +63,7 @@
     
     StreamEngagement *event = [StreamEngagement createEngagementEventWithActivityId:@"activityId" feedId:@"feedId" label:@"label" score:[NSNumber numberWithInt:10] extraData:@{@"extra":@"extra"}];
     StreamAnalytics *shared = [StreamAnalytics sharedInstance];
+    shared.loggingEnabled = NO;
     [shared setUserId:@"userX"];
     [shared send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
         

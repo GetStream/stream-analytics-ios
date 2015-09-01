@@ -7,6 +7,7 @@
 //
 
 #import "StreamAnalytics.h"
+#import "StreamAnalytics+Protected.h"
 #import "StreamClient.h"
 
 
@@ -84,7 +85,9 @@ static NSString *const StreamAPIVersion = @"v1.0";
     
     
     if (err) {
-        NSLog(@"%@", [err localizedDescription]);
+        #ifdef DEBUG
+        [[StreamAnalytics sharedInstance] logMessage:[NSString stringWithFormat:@"%@", [err localizedDescription]]];
+        #endif
         return;
     }
     
@@ -103,13 +106,26 @@ static NSString *const StreamAPIVersion = @"v1.0";
             NSError *dataError;
             id jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&dataError];
             
-            if ([NSJSONSerialization isValidJSONObject:jsonData] && dataError == nil) {
-                NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:0 error:nil]);
-                
+            if ([NSJSONSerialization isValidJSONObject:jsonData]
+                && dataError == nil
+                && (statusCode==200 || statusCode==201)) {
+
+                #ifdef DEBUG
+                [[StreamAnalytics sharedInstance] logMessage:[NSString stringWithFormat:@"%@", [NSJSONSerialization JSONObjectWithData:data options:0 error:nil]]];
+                #endif
+
                 if(completionHandler) {
                     completionHandler(statusCode, jsonData, nil);
                 }
                 
+            }
+            else {
+                NSError *err = [NSError errorWithDomain:@"io.getstream.analytics" code:statusCode userInfo:@{
+                                                                                              NSLocalizedDescriptionKey:@"Event not created!"
+                                                                                              }];
+                if(completionHandler) {
+                    completionHandler(statusCode, @{}, err);
+                }
             }
         }
         else
