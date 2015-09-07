@@ -15,6 +15,7 @@
 		490B6DBC1B8A70AD0088C872 /* StreamImpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 490B6DBB1B8A70AD0088C872 /* StreamImpression.m */; };
 		49161D291B8C4F4B00BA518F /* StreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 49161D281B8C4F4B00BA518F /* StreamClient.m */; };
 		49C3763B1B8E73C0001F5609 /* StreamEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C3763A1B8E73C0001F5609 /* StreamEvent.m */; };
+		49E7492E1B9E0760007B23E7 /* StreamAnalyticsSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E7492D1B9E0760007B23E7 /* StreamAnalyticsSwiftTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +56,10 @@
 		49161D271B8C4F4B00BA518F /* StreamClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamClient.h; sourceTree = "<group>"; };
 		49161D281B8C4F4B00BA518F /* StreamClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamClient.m; sourceTree = "<group>"; };
 		498170C31B95AAF00002FF05 /* StreamAnalytics+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StreamAnalytics+Protected.h"; sourceTree = "<group>"; };
+		498C04A01B99954E00B10C69 /* StreamAnalyticsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StreamAnalyticsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		49C376371B8E61EF001F5609 /* Stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stream.h; sourceTree = "<group>"; };
 		49C3763A1B8E73C0001F5609 /* StreamEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamEvent.m; sourceTree = "<group>"; };
+		49E7492D1B9E0760007B23E7 /* StreamAnalyticsSwiftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamAnalyticsSwiftTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +123,8 @@
 			children = (
 				490B6D481B8880470088C872 /* Supporting Files */,
 				490B6D751B88850B0088C872 /* StreamAnalyticsTests.m */,
+				498C04A01B99954E00B10C69 /* StreamAnalyticsTests-Bridging-Header.h */,
+				49E7492D1B9E0760007B23E7 /* StreamAnalyticsSwiftTests.swift */,
 			);
 			path = StreamAnalyticsTests;
 			sourceTree = "<group>";
@@ -176,6 +181,7 @@
 		490B6D301B8880470088C872 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = Stream;
 				TargetAttributes = {
@@ -233,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				490B6D761B88850B0088C872 /* StreamAnalyticsTests.m in Sources */,
+				49E7492E1B9E0760007B23E7 /* StreamAnalyticsSwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +361,7 @@
 		490B6D501B8880470088C872 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -366,12 +374,15 @@
 				INFOPLIST_FILE = StreamAnalyticsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StreamAnalyticsTests/StreamAnalyticsTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		490B6D511B8880470088C872 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -380,6 +391,7 @@
 				INFOPLIST_FILE = StreamAnalyticsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StreamAnalyticsTests/StreamAnalyticsTests-Bridging-Header.h";
 			};
 			name = Release;
 		};

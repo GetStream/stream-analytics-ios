@@ -11,7 +11,7 @@
 #import "StreamClient.h"
 
 
-#define MAX_CONNECTIONS 10
+#define MAX_CONNECTIONS 5
 
 /* Stream base URI */
 static NSString *const StreamBaseURI = @"https://analytics.getstream.io/analytics";
