@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		49E7492F1B9E1270007B23E7 /* UniversalLib */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 49E749301B9E1270007B23E7 /* Build configuration list for PBXAggregateTarget "UniversalLib" */;
+			buildPhases = (
+				49E749331B9E12C6007B23E7 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = UniversalLib;
+			productName = UniversalLib;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		490B6D3C1B8880470088C872 /* StreamAnalytics.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 490B6D3B1B8880470088C872 /* StreamAnalytics.h */; };
 		490B6D3E1B8880470088C872 /* StreamAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 490B6D3D1B8880470088C872 /* StreamAnalytics.m */; };
@@ -191,6 +205,9 @@
 					490B6D421B8880470088C872 = {
 						CreatedOnToolsVersion = 6.4;
 					};
+					49E7492F1B9E1270007B23E7 = {
+						CreatedOnToolsVersion = 6.4;
+					};
 				};
 			};
 			buildConfigurationList = 490B6D331B8880470088C872 /* Build configuration list for PBXProject "StreamAnalytics" */;
@@ -207,6 +224,7 @@
 			targets = (
 				490B6D371B8880470088C872 /* StreamAnalytics */,
 				490B6D421B8880470088C872 /* StreamAnalyticsTests */,
+				49E7492F1B9E1270007B23E7 /* UniversalLib */,
 			);
 		};
 /* End PBXProject section */
@@ -220,6 +238,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		49E749331B9E12C6007B23E7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "UNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\nxcodebuild -target StreamAnalytics ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target StreamAnalytics -configuration ${CONFIGURATION} -sdk iphonesimulator -arch i386 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/lib${PROJECT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PROJECT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PROJECT_NAME}.a\"\n\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include\" \"${UNIVERSAL_OUTPUTFOLDER}/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		490B6D341B8880470088C872 /* Sources */ = {
@@ -395,6 +429,20 @@
 			};
 			name = Release;
 		};
+		49E749311B9E1270007B23E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		49E749321B9E1270007B23E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -424,6 +472,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		49E749301B9E1270007B23E7 /* Build configuration list for PBXAggregateTarget "UniversalLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49E749311B9E1270007B23E7 /* Debug */,
+				49E749321B9E1270007B23E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
