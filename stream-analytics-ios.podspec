@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.author             = { "Stream" => "support@getstream.io" }
   s.social_media_url   = "https://twitter.com/getstream_io"
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/GetStream/stream-analytics-ios.git", :commit => "0b5c37515addc6188922826880e92348e9750d15" }
+  s.source       = { :git => "https://github.com/GetStream/stream-analytics-ios.git", :tag => "0.0.1" }
 
 
   s.source_files  = "StreamAnalytics/**/*.{h,m}"
