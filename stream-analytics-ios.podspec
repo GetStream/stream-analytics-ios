@@ -22,5 +22,8 @@ Pod::Spec.new do |s|
   s.exclude_files = "StreamAnalyticsTests/**"
   s.requires_arc = true
   s.framework = 'Foundation'
+  
+  s.preserve_paths = "libStreamAnalytics.a"
+  s.ios.vendored_library = "libStreamAnalytics.a"
 
 end
