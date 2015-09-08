@@ -21,5 +21,6 @@ Pod::Spec.new do |s|
   # s.public_header_files = "StreamAnalytics/*.h"
   s.exclude_files = "StreamAnalyticsTests/**"
   s.requires_arc = true
+  s.framework = 'XCTest', 'Foundation'
 
 end
