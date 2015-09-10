@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "stream-analytics-ios"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "stream-analytics-ios"
 
   s.description  = <<-DESC
@@ -18,13 +18,12 @@ Pod::Spec.new do |s|
 
 
   s.source_files  = "StreamAnalytics/**/*.{h,m}"
-  s.public_header_files = 'StreamAnalytics/**/Stream.h'
-  s.private_header_files = "StreamAnalytics/**/*Protected.h"
+  # s.public_header_files = 'StreamAnalytics/**/Stream.h'
+  # s.private_header_files = "StreamAnalytics/**/*Protected.h"
   # s.preserve_paths = "StreamAnalytics/**/libStreamAnalytics.a"
-  s.exclude_files = "StreamAnalyticsTests/**"
+  s.exclude_files = "StreamAnalyticsTests/StreamAnalyticsTests/**"
   s.requires_arc = true
-  s.framework = 'Foundation', 'XCTest'
-  # s.weak_framework = ''
+  s.framework = 'Foundation'
   
   # s.preserve_paths = "libStreamAnalytics.a"
   # s.ios.vendored_library = "libStreamAnalytics.a"
