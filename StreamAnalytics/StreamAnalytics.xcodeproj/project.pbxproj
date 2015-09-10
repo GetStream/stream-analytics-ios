@@ -14,6 +14,7 @@
 				49E749331B9E12C6007B23E7 /* ShellScript */,
 			);
 			dependencies = (
+				491BDC921BA1837700EEB4B0 /* PBXTargetDependency */,
 			);
 			name = UniversalLib;
 			productName = UniversalLib;
@@ -21,19 +22,26 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		490B6D3C1B8880470088C872 /* StreamAnalytics.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 490B6D3B1B8880470088C872 /* StreamAnalytics.h */; };
 		490B6D3E1B8880470088C872 /* StreamAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 490B6D3D1B8880470088C872 /* StreamAnalytics.m */; };
 		490B6D441B8880470088C872 /* libStreamAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 490B6D381B8880470088C872 /* libStreamAnalytics.a */; };
 		490B6D761B88850B0088C872 /* StreamAnalyticsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 490B6D751B88850B0088C872 /* StreamAnalyticsTests.m */; };
 		490B6DAF1B8918A70088C872 /* StreamEngagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 490B6DAE1B8918A70088C872 /* StreamEngagement.m */; };
 		490B6DBC1B8A70AD0088C872 /* StreamImpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 490B6DBB1B8A70AD0088C872 /* StreamImpression.m */; };
 		49161D291B8C4F4B00BA518F /* StreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 49161D281B8C4F4B00BA518F /* StreamClient.m */; };
+		493486F91BA183080068C32E /* Stream.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49C376371B8E61EF001F5609 /* Stream.h */; };
 		49C3763B1B8E73C0001F5609 /* StreamEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C3763A1B8E73C0001F5609 /* StreamEvent.m */; };
 		49E7492E1B9E0760007B23E7 /* StreamAnalyticsSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E7492D1B9E0760007B23E7 /* StreamAnalyticsSwiftTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		490B6D451B8880470088C872 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 490B6D301B8880470088C872 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 490B6D371B8880470088C872;
+			remoteInfo = StreamAnalytics;
+		};
+		491BDC911BA1837700EEB4B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 490B6D301B8880470088C872 /* Project object */;
 			proxyType = 1;
@@ -49,7 +57,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				490B6D3C1B8880470088C872 /* StreamAnalytics.h in CopyFiles */,
+				493486F91BA183080068C32E /* Stream.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +293,11 @@
 			target = 490B6D371B8880470088C872 /* StreamAnalytics */;
 			targetProxy = 490B6D451B8880470088C872 /* PBXContainerItemProxy */;
 		};
+		491BDC921BA1837700EEB4B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 490B6D371B8880470088C872 /* StreamAnalytics */;
+			targetProxy = 491BDC911BA1837700EEB4B0 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -377,18 +390,22 @@
 		490B6D4D1B8880470088C872 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 			};
 			name = Debug;
 		};
 		490B6D4E1B8880470088C872 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 			};
 			name = Release;
 		};
@@ -480,6 +497,7 @@
 				49E749321B9E1270007B23E7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
