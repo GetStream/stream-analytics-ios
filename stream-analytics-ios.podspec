@@ -17,15 +17,8 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/GetStream/stream-analytics-ios.git", :tag => s.version.to_s }
 
 
-  s.source_files  = "StreamAnalytics/**/*.{h,m}"
-  # s.public_header_files = 'StreamAnalytics/**/Stream.h'
-  # s.private_header_files = "StreamAnalytics/**/*Protected.h"
-  # s.preserve_paths = "StreamAnalytics/**/libStreamAnalytics.a"
-  s.exclude_files = "StreamAnalyticsTests/StreamAnalyticsTests/**"
+  s.source_files  = "StreamAnalytics/StreamAnalytics/*.{h,m}"
   s.requires_arc = true
   s.framework = 'Foundation'
-  
-  # s.preserve_paths = "libStreamAnalytics.a"
-  # s.ios.vendored_library = "libStreamAnalytics.a"
 
 end
