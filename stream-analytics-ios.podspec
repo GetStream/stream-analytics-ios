@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   s.name         = "stream-analytics-ios"
   s.version      = "0.0.3"
-  s.summary      = "stream-analytics-ios"
+  s.summary      = "Stream Analytics for ios"
 
   s.description  = <<-DESC
                    iOS SDK for Stream.

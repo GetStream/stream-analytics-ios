@@ -65,9 +65,19 @@ static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
         if (streamAnalitycsSettings && (NSString *)[streamAnalitycsSettings objectForKey:@"APIKey"]) {
             self.APIKey = [streamAnalitycsSettings objectForKey:@"APIKey"];
         }
+        else {
+            #ifdef DEBUG
+            [self logMessage:@"API key missing."];
+            #endif
+        }
 
         if (streamAnalitycsSettings && (NSString *)[streamAnalitycsSettings objectForKey:@"JWTToken"]) {
             self.JWTToken = [streamAnalitycsSettings objectForKey:@"JWTToken"];
+        }
+        else {
+            #ifdef DEBUG
+            [self logMessage:@"JWTToken key missing."];
+            #endif
         }
         
     }
