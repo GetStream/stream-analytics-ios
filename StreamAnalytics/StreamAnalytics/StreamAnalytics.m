@@ -31,7 +31,7 @@ void StreamLogDebug (NSString *format, ...) {
     va_end(args);
 }
 
-
+static BOOL loggingEnabled = NO;
 static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
 
 
@@ -42,21 +42,19 @@ static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
 #pragma mark - class methods
 
 + (instancetype)sharedInstance {
-    return [StreamAnalytics sharedInstanceWith:NO];
-}
-
-+ (instancetype)sharedInstanceWith:(BOOL)logginEnabled {
     static StreamAnalytics *streamAnalytics = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        streamAnalytics = [[self alloc] initWith:logginEnabled];
+        streamAnalytics = [[self alloc] initWith:loggingEnabled];
     });
-    streamAnalytics.loggingEnabled = logginEnabled;
     return streamAnalytics;
 }
 
 + (void)enableLogging:(BOOL)enable {
-    [self sharedInstanceWith:enable];
+    loggingEnabled = enable;
+    #ifdef DEBUG
+    [[StreamAnalytics sharedInstance] logMessage:[NSString stringWithFormat:@"Logging on: %d", loggingEnabled]];
+    #endif
 }
 
 #pragma mark - instance methods
@@ -71,7 +69,7 @@ static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
         
         self.streamClient = [StreamClient sharedInstance];
         
-        self.loggingEnabled = loggingEnabled;
+        loggingEnabled = loggingEnabled;
         
         NSBundle *appBundle = [NSBundle bundleForClass:[self class]];
         NSDictionary *streamAnalitycsSettings = [appBundle objectForInfoDictionaryKey:@"StreamAnalytics"];
@@ -107,13 +105,6 @@ static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
 
 #pragma - property accessors
 
--(void)setLoggingEnabled:(BOOL)loggingEnabled {
-    _loggingEnabled = loggingEnabled;
-    #ifdef DEBUG
-    [self logMessage:[NSString stringWithFormat:@"api key: %@\nJWTToken: %@", self.APIKey, self.JWTToken]];
-    #endif
-}
-
 -(NSString *)userId {
     return _userId == nil ? self.APIKey : _userId;
 }
@@ -143,7 +134,7 @@ static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
 #pragma mark - Private
 
 -(void)logMessage:(NSString *)message {
-    if(self.loggingEnabled) {
+    if(loggingEnabled) {
         StreamLogDebug([NSString stringWithFormat:@"%@\n%@", LogPrompt, message]);
     }
 }
