@@ -9,7 +9,9 @@
 @class StreamClient;
 @interface StreamAnalytics()
 
-@property (nonatomic, strong) StreamClient *streamClient;
+@property(nonatomic, strong) StreamClient *streamClient;
+
+@property(nonatomic, assign) BOOL loggingEnabled;
 
 /**
  API Key obtained from Stream, can be set in app information property list

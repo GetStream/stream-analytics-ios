@@ -36,12 +36,18 @@ typedef void (^ StreamRequestResult)(NSInteger, id, NSError*);
 
 /**
  */
-@property(nonatomic, assign) BOOL loggingEnabled;
+
 
 /**
     class method for accesing StreamAnalytics singleton instance
  */
 + (instancetype)sharedInstance;
+
+
+/**
+    class method for enabling logging in debug mode
+ */
++ (void)enableLogging:(BOOL)enable;
 
 
 /**
