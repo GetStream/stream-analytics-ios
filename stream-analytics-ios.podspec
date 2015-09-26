@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "stream-analytics-ios"
-  s.version      = "0.0.1"
+  s.version      = "0.0.3"
   s.summary      = "stream-analytics-ios"
 
   s.description  = <<-DESC
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.author             = { "Stream" => "support@getstream.io" }
   s.social_media_url   = "https://twitter.com/getstream_io"
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/GetStream/stream-analytics-ios.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/GetStream/stream-analytics-ios.git", :tag => "0.0.3" }
 
 
   s.source_files  = "StreamAnalytics/**/*.{h,m}"
