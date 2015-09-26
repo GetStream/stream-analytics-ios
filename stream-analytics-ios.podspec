@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage     = "https://github.com/GetStream/stream-analytics-ios"
-  s.license      = {:type => 'MIT', :file => 'LICENSE.txt' }
+  s.license      = {:type => 'MIT', :file => 'LICENSE' }
   s.author             = { "Stream" => "support@getstream.io" }
   s.social_media_url   = "https://twitter.com/getstream_io"
   s.platform     = :ios, "7.0"
