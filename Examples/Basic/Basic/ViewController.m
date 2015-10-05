@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "Stream.h"
 
 @interface ViewController ()
 
@@ -22,6 +23,28 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    //track an impression
+    StreamImpression *event = [StreamImpression createImpressionEventWithActivityIds:@[@"id1", @"id2", @"id3"] feedId:@"feed-xxx"extraData: @{@"extra":@"extra"}];
+    
+    //set user id
+    [[StreamAnalytics sharedInstance] setUserId:@"userX"];
+    
+    //send with completion handler
+    [[StreamAnalytics sharedInstance] send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
+        
+        if (error != nil) {
+            NSLog(@"%@", error.localizedDescription);
+            return;
+        }
+        
+        NSLog(@"response with status code: %ld", (long)statusCode);
+        
+    }];
+    
 }
 
 @end

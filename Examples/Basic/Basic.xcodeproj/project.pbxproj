@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4978D3D01BC314890095A722 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4978D3CF1BC314890095A722 /* DetailViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4978D3D31BC314B30095A722 /* ListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4978D3D21BC314B30095A722 /* ListTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		49DAB8D11BB697830083AD1B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DAB8D01BB697830083AD1B /* main.m */; };
 		49DAB8D41BB697830083AD1B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DAB8D31BB697830083AD1B /* AppDelegate.m */; };
 		49DAB8D71BB697830083AD1B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DAB8D61BB697830083AD1B /* ViewController.m */; };
@@ -36,6 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4978D3CE1BC314890095A722 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		4978D3CF1BC314890095A722 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		4978D3D11BC314B30095A722 /* ListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewController.h; sourceTree = "<group>"; };
+		4978D3D21BC314B30095A722 /* ListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListTableViewController.m; sourceTree = "<group>"; };
 		49DAB8CC1BB697830083AD1B /* Basic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Basic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49DAB8D01BB697830083AD1B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		49DAB8D21BB697830083AD1B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -117,6 +123,10 @@
 				49DAB8DD1BB697830083AD1B /* LaunchScreen.storyboard */,
 				49DAB8E01BB697830083AD1B /* Info.plist */,
 				49DAB8CF1BB697830083AD1B /* Supporting Files */,
+				4978D3CE1BC314890095A722 /* DetailViewController.h */,
+				4978D3CF1BC314890095A722 /* DetailViewController.m */,
+				4978D3D11BC314B30095A722 /* ListTableViewController.h */,
+				4978D3D21BC314B30095A722 /* ListTableViewController.m */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -332,6 +342,8 @@
 				49DAB8D71BB697830083AD1B /* ViewController.m in Sources */,
 				49DAB8D41BB697830083AD1B /* AppDelegate.m in Sources */,
 				49DAB8D11BB697830083AD1B /* main.m in Sources */,
+				4978D3D01BC314890095A722 /* DetailViewController.m in Sources */,
+				4978D3D31BC314B30095A722 /* ListTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
