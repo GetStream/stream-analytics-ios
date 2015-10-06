@@ -33,7 +33,7 @@ class StreamAnalyticsSwiftTests: XCTestCase {
         StreamAnalytics.sharedInstance().userId = "someUser"
         StreamAnalytics.sharedInstance().send(event, completionHandler: { (statusCode, json, error) -> Void in
             
-            println("response with status code: \(statusCode)")
+            print("response with status code: \(statusCode)")
             XCTAssertNil(error, "\(error)")
             XCTAssertTrue(statusCode==201, "event not created on server")
             expectation.fulfill()

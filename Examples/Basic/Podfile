@@ -1,0 +1,8 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '8.0'
+
+platform :ios, :deployment_target => "8.0"
+
+target 'Basic' do
+pod 'stream-analytics-ios'
+end
