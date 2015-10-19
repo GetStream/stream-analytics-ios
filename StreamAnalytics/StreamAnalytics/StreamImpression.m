@@ -18,18 +18,11 @@ static NSString *const StreamImpressionEndpoint = @"impression";
 
 @implementation StreamImpression
 
-+ (instancetype)createImpressionEventWithActivityIds:(NSArray *)activityIds feedId:(NSString *)feedId extraData:(NSDictionary *)extraData {
++ (instancetype)createImpressionEventWithForeignIds:(NSArray *)foreignIds {
     
     StreamImpression *impression = [StreamImpression new];
-    
-    NSAssert(activityIds!=nil, @"An activity id is required for tracking engagement events");
-    impression.activityIds = activityIds;
-    
-    NSAssert(feedId!=nil, @"An feed id is required for tracking engagement events");
-    impression.feedId = feedId;
-
-    impression.extraData = extraData;
-    
+    NSAssert(foreignIds!=nil, @"A list of foreign_ids is required for tracking impression events");
+    impression.foreignIds = foreignIds;
     return impression;
     
 }
@@ -42,14 +35,10 @@ static NSString *const StreamImpressionEndpoint = @"impression";
 
 - (NSDictionary *)build {
     NSMutableDictionary *dict = @{
-                                  @"activity_ids":self.activityIds,
-                                  @"feed_id":self.feedId,
+                                  @"foreign_ids":self.foreignIds,
                                   @"user_id":[[StreamAnalytics sharedInstance] userId]
                                   }.mutableCopy;
-
-    if(self.extraData != nil) {
-        dict[@"extra_data"] = self.extraData;
-    }
+    [dict addEntriesFromDictionary: [super createBaseEventPayload]];
     return dict;
 }
 

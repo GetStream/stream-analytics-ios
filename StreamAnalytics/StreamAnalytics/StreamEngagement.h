@@ -15,7 +15,7 @@
 /**
  Activity Id, required
  */
-@property(nonatomic, strong) NSString *activityId;
+@property(nonatomic, strong) NSString *foreignId;
 
 /**
     Label field, required
@@ -25,18 +25,13 @@
 /**
     Score field, optional
  */
-@property(nonatomic, strong) NSNumber *score;
+@property(nonatomic, strong) NSNumber *boost;
 
 
 /*
     Class method for creating an engagement event
-    last 2 params can be set nil and so are optional
  */
-+ (instancetype)createEngagementEventWithActivityId:(NSString *)activityId
-                                             feedId:(NSString *)feedId
-                                              label:(NSString *)label
-                                              score:(NSNumber *)score
-                                          extraData:(NSDictionary *)extraData;
++ (instancetype)createEngagementEvent:(NSString *)label withForeignId:(NSString*) foreignId;
 
 
 @end

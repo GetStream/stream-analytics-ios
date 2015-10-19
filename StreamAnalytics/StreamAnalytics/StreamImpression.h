@@ -12,16 +12,13 @@
 @interface StreamImpression : StreamEvent
 
 /**
- Activity Ids, required
+ Foreign Ids, required
  */
-@property(nonatomic, strong) NSArray *activityIds;
+@property(nonatomic, strong) NSArray *foreignIds;
 
 /*
  Class method for creating an impression event
- last 2 params can be set nil and so are optional
  */
-+ (instancetype)createImpressionEventWithActivityIds:(NSArray *)activityIds
-                                              feedId:(NSString *)feedId
-                                           extraData:(NSDictionary *)extraData;
++ (instancetype)createImpressionEventWithForeignIds:(NSArray *)foreignIds;
 
 @end
