@@ -44,7 +44,7 @@ typedef void (^ StreamRequestResult)(NSInteger, id, NSError*);
 /**
  *  Property to enable debug info for debug builds, release builds will ignore this setting
  */
-@property(nonatomic, assign) BOOL loggingEnabled;
+
 
 
 /**
@@ -54,9 +54,13 @@ typedef void (^ StreamRequestResult)(NSInteger, id, NSError*);
 
 
 /**
- *  class instance method send, sends the actual data to the server
- * 
- *  @param StreamEvent the stream event to track
+    class method for enabling logging in debug mode
+ */
++ (void)enableLogging:(BOOL)enable;
+
+
+/**
+    class instance method send, sends the actual data to the server
  */
 - (void)send:(StreamEvent *)event;
 

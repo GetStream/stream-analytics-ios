@@ -11,8 +11,8 @@
 #import "Stream.h"
 
 /*
- API_KEY nfq26m3qgfyp
- JWT_TOKEN eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3Rpb24iOiJ3cml0ZSIsImZlZWRfaWQiOiIqIiwicmVzb3VyY2UiOiJhbmFseXRpY3MifQ.pFU9mTsGtBuhdU-_NjKmd6dLRwvAcNskeMZ97BRRMnE
+ API_KEY 8r9brv6v4xj5
+ JWT_TOKEN eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3Rpb24iOiJ3cml0ZSIsInVzZXJfaWQiOiIqIiwicmVzb3VyY2UiOiJhbmFseXRpY3MifQ.rKwIdyV10DQyoFgC-KmAXBUljoFU7wbeqQV6uqNvSDg
  */
 
 @interface StreamAnalyticsTests : XCTestCase
@@ -23,7 +23,7 @@
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    [StreamAnalytics enableLogging:YES];
 }
 
 - (void)tearDown {
@@ -47,9 +47,8 @@
 
 - (void)testTrackEngagementEventWithUserId {
     
-    StreamEngagement *event = [StreamEngagement createEngagementEventWithActivityId:@"activityId" feedId:@"feedId" label:@"label" score:[NSNumber numberWithInt:10] extraData:@{@"extra":@"extra"}];
+    StreamEngagement *event = [StreamEngagement createEngagementEvent:@"label" withForeignId: @"fid"];
     StreamAnalytics *shared = [StreamAnalytics sharedInstance];
-    shared.loggingEnabled = YES;
     [shared setUserId:@"userX"];
     
     XCTAssertEqual([shared userId], @"userX", @"User id not equal to set user id");
@@ -57,13 +56,37 @@
     [shared send:event];
 }
 
+- (void)testTrackEngagementEventWithUserIdAndFeatures {
+    
+    StreamEngagement *event = [StreamEngagement createEngagementEvent:@"label" withForeignId: @"fid"];
+    event.features = @[@{@"group":@"topic", @"value":@"programming"}.mutableCopy].mutableCopy;
+    StreamAnalytics *shared = [StreamAnalytics sharedInstance];
+    [shared setUserId:@"userX"];
+    
+    XCTAssertEqual([shared userId], @"userX", @"User id not equal to set user id");
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Track async engagement event"];
+
+    [shared send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
+        NSLog(@"response with status code: %ld", (long)statusCode);
+        XCTAssertTrue(error==nil, @"%@", error.localizedDescription);
+        XCTAssertEqual(statusCode, 201, @"event not created on server");
+        XCTAssertTrue(![NSThread isMainThread], @"Callback is on the main thread!");
+        //finish async test
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+        XCTAssertNil(error);
+    }];
+}
+
 - (void)testTrackEngagementEventCallback {
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"Track async engagement event"];
     
-    StreamEngagement *event = [StreamEngagement createEngagementEventWithActivityId:@"activityId" feedId:@"feedId" label:@"label" score:[NSNumber numberWithInt:10] extraData:@{@"extra":@"extra"}];
+    StreamEngagement *event = [StreamEngagement createEngagementEvent:@"label" withForeignId: @"fid"];
     StreamAnalytics *shared = [StreamAnalytics sharedInstance];
-    shared.loggingEnabled = NO;
+
     [shared setUserId:@"userX"];
     [shared send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
         
@@ -89,10 +112,37 @@
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"Track async impression event"];
     
-    StreamImpression *event = [StreamImpression createImpressionEventWithActivityIds:@[@"id1", @"id2", @"id3"] feedId:@"feed-xxx"extraData: @{@"extra":@"extra"}];
+    StreamImpression *event = [StreamImpression createImpressionEventWithForeignIds:@[@"id1", @"id2", @"id3"]];
     [[StreamAnalytics sharedInstance] setUserId:@"userX"];
     [[StreamAnalytics sharedInstance] send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
        
+        NSLog(@"response with status code: %ld", (long)statusCode);
+        
+        XCTAssertTrue(error==nil, @"%@", error.localizedDescription);
+        
+        XCTAssertEqual(statusCode, 201, @"event not created on server");
+        
+        //finish async test
+        [expectation fulfill];
+        
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+        XCTAssertNil(error);
+    }];
+}
+
+- (void)testTrackImpressionWithLocationEventCallback {
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Track async impression event"];
+    
+    StreamImpression *event = [StreamImpression createImpressionEventWithForeignIds:@[@"id1", @"id2", @"id3"]];
+    event.location = @"frontpage";
+    event.position = @"top";
+
+    [[StreamAnalytics sharedInstance] setUserId:@"userX"];
+    [[StreamAnalytics sharedInstance] send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
+        
         NSLog(@"response with status code: %ld", (long)statusCode);
         
         XCTAssertTrue(error==nil, @"%@", error.localizedDescription);

@@ -31,7 +31,7 @@ void StreamLogDebug (NSString *format, ...) {
     va_end(args);
 }
 
-
+static BOOL loggingEnabled = NO;
 static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
 
 
@@ -45,29 +45,57 @@ static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
     static StreamAnalytics *streamAnalytics = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        streamAnalytics = [[self alloc] init];
+        streamAnalytics = [[self alloc] initWith:loggingEnabled];
     });
     return streamAnalytics;
 }
 
++ (void)enableLogging:(BOOL)enable {
+    loggingEnabled = enable;
+    #ifdef DEBUG
+    [[StreamAnalytics sharedInstance] logMessage:[NSString stringWithFormat:@"Logging on: %d", loggingEnabled]];
+    #endif
+}
 
 #pragma mark - instance methods
 
 - (instancetype)init {
+    return [self initWith:NO];
+}
+
+- (instancetype)initWith:(BOOL)loggingEnabled {
     self = [super init];
     if(self) {
         
         self.streamClient = [StreamClient sharedInstance];
         
+        loggingEnabled = loggingEnabled;
+        
         NSBundle *appBundle = [NSBundle bundleForClass:[self class]];
         NSDictionary *streamAnalitycsSettings = [appBundle objectForInfoDictionaryKey:@"StreamAnalytics"];
         
-        if (streamAnalitycsSettings && (NSString *)[streamAnalitycsSettings objectForKey:@"APIKey"]) {
+        if (!streamAnalitycsSettings) {
+            #ifdef DEBUG
+            [self logMessage:@"Stream Analytics requires an API key and JWT token."];
+            #endif
+        }
+        
+        if (streamAnalitycsSettings && [(NSString *)[streamAnalitycsSettings objectForKey:@"APIKey"] length] != 0 ) {
             self.APIKey = [streamAnalitycsSettings objectForKey:@"APIKey"];
         }
-
-        if (streamAnalitycsSettings && (NSString *)[streamAnalitycsSettings objectForKey:@"JWTToken"]) {
+        else {
+            #ifdef DEBUG
+            [self logMessage:@"API key missing."];
+            #endif
+        }
+        
+        if (streamAnalitycsSettings && [(NSString *)[streamAnalitycsSettings objectForKey:@"JWTToken"] length] != 0) {
             self.JWTToken = [streamAnalitycsSettings objectForKey:@"JWTToken"];
+        }
+        else {
+            #ifdef DEBUG
+            [self logMessage:@"JWTToken key missing."];
+            #endif
         }
         
     }
@@ -76,13 +104,6 @@ static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
 
 
 #pragma - property accessors
-
--(void)setLoggingEnabled:(BOOL)loggingEnabled {
-    _loggingEnabled = loggingEnabled;
-    #ifdef DEBUG
-    [self logMessage:[NSString stringWithFormat:@"api key: %@\nJWTToken: %@", self.APIKey, self.JWTToken]];
-    #endif
-}
 
 -(NSString *)userId {
     return _userId == nil ? self.APIKey : _userId;
@@ -113,7 +134,7 @@ static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
 #pragma mark - Private
 
 -(void)logMessage:(NSString *)message {
-    if(self.loggingEnabled) {
+    if(loggingEnabled) {
         StreamLogDebug([NSString stringWithFormat:@"%@\n%@", LogPrompt, message]);
     }
 }

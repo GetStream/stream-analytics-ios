@@ -10,4 +10,4 @@ Add the API key and JWT token obtained from Stream to the application informatio
 }
 
 
-##installation
+https://github.com/GetStream/stream-analytics-android/blob/master/README.md

@@ -18,26 +18,11 @@ static NSString *const StreamEngagementEndpoint = @"engagement";
 
 @implementation StreamEngagement
 
-+ (instancetype)createEngagementEventWithActivityId:(NSString *)activityId
-                                     feedId:(NSString *)feedId
-                                      label:(NSString *)label
-                                      score:(NSNumber *)score
-                                  extraData:(NSDictionary *)extraData {
-    
++ (instancetype)createEngagementEvent:(NSString *)label withForeignId:(NSString*) foreignId {
     StreamEngagement *engagement = [StreamEngagement new];
-
-    NSAssert(activityId!=nil, @"An activity id is required for tracking engagement events");
-    engagement.activityId = activityId;
-    
-    NSAssert(feedId!=nil, @"An feed id is required for tracking engagement events");
-    engagement.feedId = feedId;
-    
     NSAssert(label!=nil, @"A label is required for tracking engagement events");
     engagement.label = label;
-    
-    engagement.score = score;
-    engagement.extraData = extraData;
-
+    engagement.foreignId = foreignId;
     return engagement;
 }
 
@@ -50,16 +35,13 @@ static NSString *const StreamEngagementEndpoint = @"engagement";
 
 - (NSDictionary *)build {
     NSMutableDictionary *dict = @{
-                                  @"activity_id":self.activityId,
-                                  @"feed_id":self.feedId,
                                   @"label":self.label,
+                                  @"foreign_id": self.foreignId,
                                   @"user_id":[[StreamAnalytics sharedInstance] userId]
                                   }.mutableCopy;
-    if(self.score != nil) {
-        dict[@"score"] = self.score;
-    }
-    if(self.extraData != nil) {
-        dict[@"extra_data"] = self.extraData;
+    [dict addEntriesFromDictionary: [super createBaseEventPayload]];
+    if(self.boost != nil) {
+        dict[@"boost"] = self.boost;
     }
     return dict;
 }

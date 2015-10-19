@@ -31,13 +31,35 @@ typedef enum : NSUInteger {
 
 
 /**
- Feed id, required
+ User id, required
+ */
+@property(nonatomic, strong) NSString *userId;
+
+/**
+ Features, optional
+ */
+@property(nonatomic, strong) NSArray *features;
+
+/**
+ Feed id, optional
  */
 @property(nonatomic, strong) NSString *feedId;
 
 /**
- Extra data field, optional
+ Location field, optional
  */
-@property(nonatomic, strong) NSDictionary *extraData;
+@property(nonatomic, strong) NSString *location;
+
+/**
+ Position field, optional
+ */
+@property(nonatomic, strong) NSString *position;
+
+
+/*
+ Instance method for creating the base event data payload
+ */
+- (NSMutableDictionary*)createBaseEventPayload;
+
 
 @end

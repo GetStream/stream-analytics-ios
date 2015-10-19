@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>io.getstream.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -23,9 +23,9 @@
 	<key>StreamAnalytics</key>
 	<dict>
 		<key>APIKey</key>
-		<string>nfq26m3qgfyp</string>
+		<string>8r9brv6v4xj5</string>
 		<key>JWTToken</key>
-		<string>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3Rpb24iOiJ3cml0ZSIsImZlZWRfaWQiOiIqIiwicmVzb3VyY2UiOiJhbmFseXRpY3MifQ.pFU9mTsGtBuhdU-_NjKmd6dLRwvAcNskeMZ97BRRMnE</string>
+		<string>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3Rpb24iOiJ3cml0ZSIsInVzZXJfaWQiOiIqIiwicmVzb3VyY2UiOiJhbmFseXRpY3MifQ.rKwIdyV10DQyoFgC-KmAXBUljoFU7wbeqQV6uqNvSDg</string>
 	</dict>
 </dict>
 </plist>
