@@ -28,8 +28,8 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     //track an impression
-    StreamImpression *event = [StreamImpression createImpressionEventWithActivityIds:@[@"id1", @"id2", @"id3"] feedId:@"feed-xxx"extraData: @{@"extra":@"extra"}];
-    
+    StreamImpression *event = [StreamImpression createImpressionEventWithForeignIds:@[@"id1", @"id2", @"id3"]];
+
     //set user id
     [[StreamAnalytics sharedInstance] setUserId:@"userX"];
     

@@ -19,14 +19,23 @@
     [super viewDidLoad];
     
     //create engagement event
-    StreamEngagement *event = [StreamEngagement createEngagementEventWithActivityId:self.someId feedId:@"feedId" label:@"label" score:[NSNumber numberWithInt:10] extraData:@{@"extra":@"extra"}];
+    StreamEngagement *event = [StreamEngagement createEngagementEvent:@"open" withForeignId: @"page_main"];
     StreamAnalytics *shared = [StreamAnalytics sharedInstance];
     
     //set user id
     [shared setUserId:@"userX"];
     
     //send it
-    [shared send:event];
+    [shared send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
+        
+        if (error != nil) {
+            NSLog(@"%@", error.localizedDescription);
+            return;
+        }
+        
+        NSLog(@"response with status code: %ld", (long)statusCode);
+        
+    }];
     
 }
 
