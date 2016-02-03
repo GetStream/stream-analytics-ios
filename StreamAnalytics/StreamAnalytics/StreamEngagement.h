@@ -15,7 +15,7 @@
 /**
  Activity Id, required
  */
-@property(nonatomic, strong) NSString *foreignId;
+@property(nonatomic, strong) NSDictionary *content;
 
 /**
     Label field, required
@@ -31,7 +31,7 @@
 /*
     Class method for creating an engagement event
  */
-+ (instancetype)createEngagementEvent:(NSString *)label withForeignId:(NSString*) foreignId;
++ (instancetype)createEngagementEvent:(NSString *)label withContent:(NSDictionary*) content;
 
 
 @end

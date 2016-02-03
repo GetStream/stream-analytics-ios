@@ -18,11 +18,11 @@ static NSString *const StreamEngagementEndpoint = @"engagement";
 
 @implementation StreamEngagement
 
-+ (instancetype)createEngagementEvent:(NSString *)label withForeignId:(NSString*) foreignId {
++ (instancetype)createEngagementEvent:(NSString *)label withContent:(NSDictionary*) content {
     StreamEngagement *engagement = [StreamEngagement new];
     NSAssert(label!=nil, @"A label is required for tracking engagement events");
     engagement.label = label;
-    engagement.foreignId = foreignId;
+    engagement.content = content;
     return engagement;
 }
 
@@ -36,8 +36,8 @@ static NSString *const StreamEngagementEndpoint = @"engagement";
 - (NSDictionary *)build {
     NSMutableDictionary *dict = @{
                                   @"label":self.label,
-                                  @"foreign_id": self.foreignId,
-                                  @"user_id":[[StreamAnalytics sharedInstance] userId]
+                                  @"content": self.content,
+                                  @"user_data":[[StreamAnalytics sharedInstance] userData].mutableCopy
                                   }.mutableCopy;
     [dict addEntriesFromDictionary: [super createBaseEventPayload]];
     if(self.boost != nil) {

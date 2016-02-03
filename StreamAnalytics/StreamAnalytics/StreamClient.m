@@ -124,7 +124,7 @@ static NSString *const StreamAPIVersion = @"v1.0";
                                                                                               NSLocalizedDescriptionKey:@"Event not created!"
                                                                                               }];
                 if(completionHandler) {
-                    completionHandler(statusCode, @{}, err);
+                    completionHandler(statusCode, data, err);
                 }
             }
         }

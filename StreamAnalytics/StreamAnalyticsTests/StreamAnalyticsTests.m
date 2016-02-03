@@ -45,25 +45,65 @@
     XCTAssertEqual((NSString *)[settings objectForKey:@"JWTToken"],[[StreamAnalytics sharedInstance] JWTToken], @"JWT Token not equal to entry in app info property list");
 }
 
-- (void)testTrackEngagementEventWithUserId {
+- (void)testseUserIdAndAlias {
+    StreamAnalytics *shared = [StreamAnalytics sharedInstance];
+    [shared setUserId:@"486892" andAlias:@"Julian"];
     
-    StreamEngagement *event = [StreamEngagement createEngagementEvent:@"label" withForeignId: @"fid"];
+    XCTAssertEqual([shared userData][@"id"], @"486892", @"User id not equal to set user id");
+    XCTAssertEqual([shared userData][@"alias"], @"Julian", @"User id not equal to set user id");
+}
+
+- (void)testTrackEngagementEventWithUserId {
+    StreamEngagement *event = [StreamEngagement createEngagementEvent:@"label" withContent:@{@"foreign_id": @"fid"}.mutableCopy];
     StreamAnalytics *shared = [StreamAnalytics sharedInstance];
     [shared setUserId:@"userX"];
     
-    XCTAssertEqual([shared userId], @"userX", @"User id not equal to set user id");
+    XCTAssertEqual([shared userData][@"id"], @"userX", @"User id not equal to set user id");
     
     [shared send:event];
 }
 
+- (void)testExample1 {
+    StreamImpression *event = [StreamImpression createImpressionEventWithContentList:@[@"song:34349698", @"song:34349699", @"song:34349697"]];
+    [[StreamAnalytics sharedInstance] setUserId:@"userX"];
+    event.feedId = @"flat:tommaso";
+    event.location = @"ios-app";
+    [[StreamAnalytics sharedInstance] send:event];
+}
+
+- (void)testExample2 {
+    [[StreamAnalytics sharedInstance] setUserId:@"userX"];
+    NSMutableDictionary *content = [NSMutableDictionary new];
+    content[@"foreign_id"] = @"post:42";
+    content[@"label"] = @"Tom shared She wolf from Shakira";
+    content[@"actor"] = @{@"id": @"user:2353540", @"label": @"Tom"};
+    content[@"object"] = @{@"id": @"song:34349698", @"label": @"She wolf"};
+    content[@"verb"] = @"share";
+    StreamEngagement *event = [StreamEngagement createEngagementEvent:@"click" withContent: content];
+    event.feedId = @"timeline:tom";
+    [[StreamAnalytics sharedInstance] send:event];
+}
+
+- (void)testExample3 {
+    [[StreamAnalytics sharedInstance] setUserId:@"userX"];
+    NSMutableDictionary *content = [NSMutableDictionary new];
+    content[@"foreign_id"] = @"post:42";
+    content[@"label"] = @"Tom shared She wolf from Shakira";
+    content[@"actor"] = @{@"id": @"user:2353540", @"label": @"Tom"};
+    content[@"object"] = @{@"id": @"song:34349698", @"label": @"She wolf"};
+    content[@"verb"] = @"share";
+    StreamEngagement *event = [StreamImpression createImpressionEventWithContentList:@[content]];
+    event.feedId = @"timeline:tom";
+    [[StreamAnalytics sharedInstance] send:event];
+}
+
 - (void)testTrackEngagementEventWithUserIdAndFeatures {
-    
-    StreamEngagement *event = [StreamEngagement createEngagementEvent:@"label" withForeignId: @"fid"];
+    StreamEngagement *event = [StreamEngagement createEngagementEvent:@"label" withContent: @{@"foreign_id": @"fid"}.mutableCopy];
     event.features = @[@{@"group":@"topic", @"value":@"programming"}.mutableCopy].mutableCopy;
     StreamAnalytics *shared = [StreamAnalytics sharedInstance];
     [shared setUserId:@"userX"];
     
-    XCTAssertEqual([shared userId], @"userX", @"User id not equal to set user id");
+    XCTAssertEqual([shared userData][@"id"], @"userX", @"User id not equal to set user id");
     XCTestExpectation *expectation = [self expectationWithDescription:@"Track async engagement event"];
 
     [shared send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
@@ -84,7 +124,7 @@
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"Track async engagement event"];
     
-    StreamEngagement *event = [StreamEngagement createEngagementEvent:@"label" withForeignId: @"fid"];
+    StreamEngagement *event = [StreamEngagement createEngagementEvent:@"label" withContent:@{@"foreign_id": @"fid"}.mutableCopy];
     StreamAnalytics *shared = [StreamAnalytics sharedInstance];
 
     [shared setUserId:@"userX"];
@@ -112,10 +152,34 @@
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"Track async impression event"];
     
-    StreamImpression *event = [StreamImpression createImpressionEventWithForeignIds:@[@"id1", @"id2", @"id3"]];
+    StreamImpression *event = [StreamImpression createImpressionEventWithContentList:@[@"id1", @"id2", @"id3"]];
     [[StreamAnalytics sharedInstance] setUserId:@"userX"];
     [[StreamAnalytics sharedInstance] send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
        
+        NSLog(@"response with status code: %ld", (long)statusCode);
+        
+        XCTAssertTrue(error==nil, @"%@", error.localizedDescription);
+        
+        XCTAssertEqual(statusCode, 201, @"event not created on server");
+        
+        //finish async test
+        [expectation fulfill];
+        
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+        XCTAssertNil(error);
+    }];
+}
+
+- (void)testTrackImpressionContentObjectsEventCallback {
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Track async impression event"];
+    
+    StreamImpression *event = [StreamImpression createImpressionEventWithContentList:@[@{@"foreign_id": @"fid"}.mutableCopy]];
+    [[StreamAnalytics sharedInstance] setUserId:@"userX"];
+    [[StreamAnalytics sharedInstance] send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
+        
         NSLog(@"response with status code: %ld", (long)statusCode);
         
         XCTAssertTrue(error==nil, @"%@", error.localizedDescription);
@@ -136,7 +200,7 @@
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"Track async impression event"];
     
-    StreamImpression *event = [StreamImpression createImpressionEventWithForeignIds:@[@"id1", @"id2", @"id3"]];
+    StreamImpression *event = [StreamImpression createImpressionEventWithContentList:@[@"id1", @"id2", @"id3"]];
     event.location = @"frontpage";
     event.position = @"top";
 

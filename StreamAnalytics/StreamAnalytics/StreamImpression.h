@@ -14,11 +14,11 @@
 /**
  Foreign Ids, required
  */
-@property(nonatomic, strong) NSArray *foreignIds;
+@property(nonatomic, strong) NSArray *contentList;
 
 /*
  Class method for creating an impression event
  */
-+ (instancetype)createImpressionEventWithForeignIds:(NSArray *)foreignIds;
++ (instancetype)createImpressionEventWithContentList:(NSArray *)foreignIds;
 
 @end

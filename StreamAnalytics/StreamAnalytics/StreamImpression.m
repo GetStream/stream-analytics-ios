@@ -18,11 +18,11 @@ static NSString *const StreamImpressionEndpoint = @"impression";
 
 @implementation StreamImpression
 
-+ (instancetype)createImpressionEventWithForeignIds:(NSArray *)foreignIds {
++ (instancetype)createImpressionEventWithContentList:(NSArray *)contentList {
     
     StreamImpression *impression = [StreamImpression new];
-    NSAssert(foreignIds!=nil, @"A list of foreign_ids is required for tracking impression events");
-    impression.foreignIds = foreignIds;
+    NSAssert(contentList!=nil, @"A list of dictionaries is required for tracking impression events");
+    impression.contentList = contentList;
     return impression;
     
 }
@@ -35,8 +35,8 @@ static NSString *const StreamImpressionEndpoint = @"impression";
 
 - (NSDictionary *)build {
     NSMutableDictionary *dict = @{
-                                  @"foreign_ids":self.foreignIds,
-                                  @"user_id":[[StreamAnalytics sharedInstance] userId]
+                                  @"content_list":self.contentList,
+                                  @"user_data":[[StreamAnalytics sharedInstance] userData].mutableCopy
                                   }.mutableCopy;
     [dict addEntriesFromDictionary: [super createBaseEventPayload]];
     return dict;

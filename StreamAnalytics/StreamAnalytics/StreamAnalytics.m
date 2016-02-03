@@ -103,11 +103,17 @@ static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
 }
 
 
-#pragma - property accessors
-
--(NSString *)userId {
-    return _userId == nil ? self.APIKey : _userId;
+- (void)setUserId:(NSString *) userId andAlias:(NSString *) alias{
+    [StreamAnalytics sharedInstance].userData = @{@"id": userId, @"alias": alias};
 }
+
+
+- (void)setUserId:(NSString *) userId {
+    [StreamAnalytics sharedInstance].userData = @{@"id": userId};
+}
+
+
+#pragma - property accessors
 
 - (void)send:(StreamEvent <StreamEvent>*)event {
     
@@ -116,8 +122,13 @@ static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
     #ifdef DEBUG
     [self logMessage:[NSString stringWithFormat:@"Send event: %@", endPoint]];
     #endif
-    
-    [self.streamClient doRequestForEndPoint:[endPoint stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] withData:[event build] completionHandler:nil];
+
+    if ([self.userData objectForKey:@"key"] != nil) {
+        [self.streamClient doRequestForEndPoint:[endPoint stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] withData:[event build] completionHandler:nil];
+    } else {
+        [self logMessage:[NSString stringWithFormat:@"You must set the user in order to track events"]];
+    }
+
 }
 
 - (void)send:(StreamEvent <StreamEvent>*)event completionHandler:(StreamRequestResult)result {

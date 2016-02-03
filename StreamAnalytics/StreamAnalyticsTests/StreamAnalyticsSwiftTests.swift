@@ -27,10 +27,9 @@ class StreamAnalyticsSwiftTests: XCTestCase {
 
     func testTrackImpressionEventCallback() {
         let expectation:XCTestExpectation = expectationWithDescription("Track async impression event")
-        
-        let event = StreamImpression.createImpressionEventWithForeignIds(["id1", "id2"])
+        let event = StreamImpression.createImpressionEventWithContentList(["id1", "id2"])
 
-        StreamAnalytics.sharedInstance().userId = "someUser"
+        StreamAnalytics.sharedInstance().setUserId("dude");
         StreamAnalytics.sharedInstance().send(event, completionHandler: { (statusCode, json, error) -> Void in
             
             print("response with status code: \(statusCode)")

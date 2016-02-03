@@ -35,10 +35,10 @@ typedef void (^ StreamRequestResult)(NSInteger, id, NSError*);
 
 
 /**
-    Every resource created by the client is always related to an user id, set this
+    Every resource created by the client is always related to an user, set this
     propery before start tracking
  */
-@property(nonatomic, strong) NSString *userId;
+@property(nonatomic, strong) NSDictionary *userData;
 
 
 /**
@@ -58,6 +58,16 @@ typedef void (^ StreamRequestResult)(NSInteger, id, NSError*);
  */
 + (void)enableLogging:(BOOL)enable;
 
+
+/**
+ instance method to set userId
+ */
+- (void)setUserId:(NSString *) userId;
+
+/**
+ instance method to set userId and its label
+ */
+- (void)setUserId:(NSString *) userId andAlias:(NSString *) alias;
 
 /**
     class instance method send, sends the actual data to the server

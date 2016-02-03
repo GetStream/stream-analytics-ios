@@ -33,7 +33,7 @@ typedef enum : NSUInteger {
 /**
  User id, required
  */
-@property(nonatomic, strong) NSString *userId;
+@property(nonatomic, strong) NSDictionary *userData;
 
 /**
  Features, optional
