@@ -28,10 +28,10 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     //track an impression
-    StreamImpression *event = [StreamImpression createImpressionEventWithForeignIds:@[@"id1", @"id2", @"id3"]];
+    StreamImpression *event = [StreamImpression createImpressionEventWithContentList:@[@"id1", @"id2", @"id3"]];
 
     //set user id
-    [[StreamAnalytics sharedInstance] setUserId:@"userX"];
+    [[StreamAnalytics sharedInstance] setUserId:@"42" andAlias:@"test-user"];
     
     //send with completion handler
     [[StreamAnalytics sharedInstance] send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {

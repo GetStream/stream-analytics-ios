@@ -19,11 +19,8 @@
     [super viewDidLoad];
     
     //create engagement event
-    StreamEngagement *event = [StreamEngagement createEngagementEvent:@"open" withForeignId: @"page_main"];
+    StreamEngagement *event = [StreamEngagement createEngagementEvent:@"open" withContent: @{@"foreign_id": @"page_main"}];
     StreamAnalytics *shared = [StreamAnalytics sharedInstance];
-    
-    //set user id
-    [shared setUserId:@"userX"];
     
     //send it
     [shared send:event completionHandler:^(NSInteger statusCode, id JSON, NSError *error) {
