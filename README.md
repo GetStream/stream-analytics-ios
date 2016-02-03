@@ -1,13 +1,5 @@
-## setup
-Add the API key and JWT token obtained from Stream to the application information property list with the dictionary key type:
+## iOS Analytics client for GetStream.io
 
-{
-	StreamAnalytics: 
-	{
-		APIKey: String,
-		JWTToken: String 
-	}
-}
+[![Pod version](https://badge.fury.io/co/stream-analytics-ios.svg)](https://badge.fury.io/co/stream-analytics-ios) [![Build Status](https://travis-ci.org/GetStream/stream-analytics-ios.svg?branch=master)](https://travis-ci.org/GetStream/stream-analytics-ios)
 
-
-https://github.com/GetStream/stream-analytics-android/blob/master/README.md
+[Documentation](https://getstream.io/docs_analytics)
