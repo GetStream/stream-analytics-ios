@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
 
   s.name         = "stream-analytics-ios"
-  s.version      = "0.0.4"
+  s.version      = "1.0.0"
   s.summary      = "Stream Analytics for ios"
 
   s.description  = <<-DESC
-                   iOS SDK for Stream.
+                   iOS SDK for GetStream.io
                    Build scalable newsfeeds & activity streams in a few hours instead of weeks
                    DESC
 

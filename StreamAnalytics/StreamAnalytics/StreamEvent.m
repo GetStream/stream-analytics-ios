@@ -26,9 +26,6 @@
     if (self.features != nil) {
         dict[@"features"] = self.features;
     }
-    if(self.feedId != nil) {
-        dict[@"feed_id"] = self.feedId;
-    }
     return dict;
 };
 
