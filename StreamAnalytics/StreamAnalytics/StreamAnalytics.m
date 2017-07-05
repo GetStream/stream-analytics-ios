@@ -123,7 +123,7 @@ static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
     [self logMessage:[NSString stringWithFormat:@"Send event: %@", endPoint]];
     #endif
 
-    if ([self.userData objectForKey:@"key"] != nil) {
+    if ([self.userData objectForKey:@"id"] != nil) {
         [self.streamClient doRequestForEndPoint:[endPoint stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] withData:[event build] completionHandler:nil];
     } else {
         [self logMessage:[NSString stringWithFormat:@"You must set the user in order to track events"]];
