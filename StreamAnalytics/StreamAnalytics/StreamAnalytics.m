@@ -71,7 +71,7 @@ static NSString *const LogPrompt = @"<STREAM ANALYTICS>";
         
         loggingEnabled = loggingEnabled;
         
-        NSBundle *appBundle = [NSBundle bundleForClass:[self class]];
+        NSBundle *appBundle = [NSBundle mainBundle];
         NSDictionary *streamAnalitycsSettings = [appBundle objectForInfoDictionaryKey:@"StreamAnalytics"];
         
         if (!streamAnalitycsSettings) {
