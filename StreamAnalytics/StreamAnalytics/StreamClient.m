@@ -14,7 +14,7 @@
 #define MAX_CONNECTIONS 5
 
 /* Stream base URI */
-static NSString *const StreamBaseURI = @"https://analytics.getstream.io/analytics";
+static NSString *const StreamBaseURI = @"https://analytics.stream-io-api.com/analytics";
 
 /* Sream API version */
 static NSString *const StreamAPIVersion = @"v1.0";
